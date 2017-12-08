@@ -14,8 +14,19 @@ module.exports = (app,passport) => {
         failureFlash: true
     }));
 
+    app.post('/login', validateLogin, passport.authenticate('local.login',{
+        successRedirect: '/home',
+        failureRedirect: '/login',
+        failureFlash: true
+    }));
+
     app.get('/login',(req, res ,next) => {
-        res.render('user/login',{title: "Login || Rate me"});
+        var errors = req.flash('error');
+        res.render('user/login',{title: "Login || Rate me", messages: errors, hasErrors: errors.length > 0});
+    });
+
+    app.get('/home', (req,res) => {
+        res.render('home',{title: "Home || Rate me"});
     });
 }
 
@@ -36,6 +47,25 @@ function validate(req,res, next) {
         });
         req.flash('error', messages);
         res.redirect('/signup');
+    } else {
+        return next();
+    }
+}
+
+function validateLogin(req, res, next) {
+    req.checkBody('email', 'Email is required').notEmpty();
+    req.checkBody('email','Email is invalid').isEmail();
+    req.checkBody('password','Password is required').notEmpty();
+    req.checkBody('password','Password must not be less than 5').isLength({min: 5});
+
+    var errors = req.validationErrors();
+    if(errors) {
+        var messages = [];
+        errors.forEach(element => {
+            messages.push(element.msg);
+        });
+        req.flash('error', messages);
+        res.redirect('/login');
     } else {
         return next();
     }

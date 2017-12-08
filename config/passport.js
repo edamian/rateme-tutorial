@@ -35,3 +35,23 @@ passport.use('local.signup',
             });
         });
 }));
+
+passport.use('local.login', 
+new localStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+}, (req,email,password,done) => {
+    User.findOne({'email': email}, (err, user) => {
+        if(err) {
+            return done(err);
+        }
+        var messages = [];
+        if(!user || !user.decryptPassword(password)) {
+            messages.push('Email does not exists or password is invalid');
+            return done(null,false, req.flash('error',messages));
+        }
+
+        return done(null, user);
+    });
+}));

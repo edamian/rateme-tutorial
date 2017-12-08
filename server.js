@@ -15,6 +15,7 @@ const port = 3000;
 const stringConnection = 'mongodb://localhost/rateme';
 
 //Connect to MongoDB
+mongoose.Promise = global.Promise;
 mongoose.connect(stringConnection,{useMongoClient: true});
 
 //Require passport config
