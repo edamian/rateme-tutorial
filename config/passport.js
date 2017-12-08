@@ -24,7 +24,7 @@ passport.use('local.signup',
                 return done(err);
             }
             if(user) {
-                return done(null,false);
+                return done(null,false, req.flash('error','User with email already exits'));
             }
             var newUser = new User();
             newUser.fullname = req.body.fullname;

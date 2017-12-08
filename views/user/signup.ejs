@@ -18,9 +18,18 @@
        </div><br>
     
         <div class="row signup">
+
+            <% if(hasErrors) {%>
+                <% for(var i =0; i <messages.length; i++) { %>
+                    <div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+                        <%= messages[i] %>
+                    </div>
+                <% }%>
+            <% }%>
     
             <form method="POST" class="" id="signupForm" action="/signup">
-    
+     
                 <div class="row">
                     <div class="form-group col-xs-12 input_group">
                         <input id="fullname" class="form-control" name="fullname" type="text" autocomplete="on" placeholder="FULLNAME" style="margin-top: 50px; margin-bottom:20px;" >
