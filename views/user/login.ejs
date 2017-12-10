@@ -19,13 +19,16 @@
     
         <div class="row signup">
             <% if(hasErrors) {%>
-                <% for(var i =0; i <messages.length; i++) { %>
+                <% for(var i = 0; i < messages.length; i++) {%>
                     <div class="alert alert-danger">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
-                        <%= messages[i] %>
+                       <a href="#" class="close" data-dismiss="alert" aria-label="close">
+                           &times;
+                       </a>
+                       <%= messages[i] %>
+                        
                     </div>
-                <% }%>
-            <% }%>
+                <% } %>
+            <% } %>
             <form method="POST" class="" id="signupForm" action="/login">    
                 <div class="form-group input_group">
                     <input id="email" class="form-control" name="email" type="text" autocomplete="on" placeholder="EMAIL" style="margin-bottom:20px;">
@@ -43,7 +46,8 @@
               </form>
     
               <div>
-                  <h4>Already have an account? <a href="/signup">Sign up</a></h4>
+                  <h4 class="pull-left">Already have an account? <a href="/signup">Sign up</a></h4>
+                  <h4 class="pull-rigth">Forgot your <a href="/forgot">password?</a></h4>
               </div>
     
     

@@ -20,6 +20,8 @@ mongoose.connect(stringConnection,{useMongoClient: true});
 
 //Require passport config
 require('./config/passport');
+//Require secret file
+require('./secret/secret.js');
 
 app.use(express.static('public'));
 app.engine('ejs',engine);
